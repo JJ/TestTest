@@ -12,8 +12,11 @@ use Git::Repo::Commits;
 my $home = shift || "/home/jmerelo/txt/docencia";
 
 my %repos = ( 'infraestructura-virtual/IV16-17' => ['practicas',
-						    ['0','1','2','3','4','5']]);
+						    ['0','1','2','3','4','5']],
+	      'infraestructura-virtual/IV-17-18' => ['proyectos',
+						    ['hito-10','hito-1','hito-2','hito-3','hito-4','hito-5']]);
 
+say "Class,milestone,date";
 for my $r ( keys %repos ) {
   my $preffix = $repos{$r}[0];
   for my $h ( @{$repos{$r}[1]} ) {
