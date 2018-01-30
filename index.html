@@ -33,6 +33,13 @@
 	<section><h1>Testing for testing</h1>
 	  <h2>Using continuous integration in the classroom</h2>
 	  <h3><code>@jjmerelo</code>, Granada Perl Mongers</h3>
+	  <aside class='notes'>Why you should be interested in this?
+	  Teaching is not one of
+	  the <a href='http://www.cracked.com/blog/5-jobs-everyone-in-world-should-have-at-some-point/'>5
+	      jobs everyone should have at some point.</a>, but it is
+	  in <a href='https://www.theodysseyonline.com/10-jobs-everyone-should-have-to-do'>in
+	      this other list, teacher.</a>. Everyone has to teach,
+	  and you could as well do it the best way you can. </aside>
 	</section>
 
 	<!-- A bit of context -->
@@ -69,14 +76,100 @@
 	      engine is also great for detecting plagiarism.</aside>
 	  </section>
 	</section>
+
+	<!-- A new beginning -->
+	<section>
+	  <section data-background='https://farm2.staticflickr.com/1560/25883822136_f25e9b9347_o_d.jpg'
+		   alt='dawn over Lawyer's creek'>
+	    <h1>2017: a new beginning</h1>
+	    <aside class='notes'>Fired from my appointment as director
+	    of the free software office, all of a sudden I had a lot
+	    of time in my hands... And lost the assistant that checked
+	    assignments before grading them. So it was a match made in
+	      heaven, and I just had the tool for doing that.</aside>
+	  </section>
+
+	  <section data-background='https://farm5.staticflickr.com/4057/4272142306_98f0ff1a33_o_d.jpg'
+	    alt='Hudson siren'>
+	    <h1>Continuous integration to the rescue</h1>
+	    <aside class='notes'>In fact, CI is part of the class and
+	    they have to set it up for their projects from early
+	    on. But in this case, the idea was to run tests on the
+	      pull requests they made.</aside>
+	  </section>
+
+	  <section data-background='img/pull-request.png'>
+	    <h1>Milestone release ~~ code review</h1>
+
+	    <aside class='notes'>Thus we delved even deeper into the
+	    metaphor: they had to deploy a milestone, and the
+	    professor was the master that did the code review, looking
+	      at the test problems. </aside>
+	  </section>
+	</section>
+
+	<section> <!-- Checks and balances -->
+	  <section><h1>What do we check?</h1>
+	  </section>
+	  <section><h1>Assignment == 1 line</h1>
+	    <h2 class='fragment'>Repo URL is correct</h2>
+	  </section>
+	  <section><h1>Perl to the rescue</h1></section>
+	  <section><pre><code>my $repo = Git->repository ( Directory => '.' );
+my $diff = $repo->command('diff','HEAD^1','HEAD');
+my $diff_regex = qr/a\/proyectos\/hito-(\d)\.md/;
+my $github;
+my ($this_hito) = ($diff =~ $diff_regex);
+skip "No hay envío de proyecto", 5 unless defined $this_hito;
+my @files = split(/diff --git/,$diff);
+my ($diff_hito) = grep( /$diff_regex/, @files);
+	  </code></pre></section>
+	  <section><pre><code>my @lines = split("\n",$diff_hito);
+my @adds = grep(/^\+[^+]/,@lines);
+is( $#adds, 0, "Añade sólo una línea");
+my $url_repo;
+if ( $adds[0] =~ /\(http/ ) {
+  ($url_repo) = ($adds[0] =~ /\((http\S+)\)/);
+} else {
+  ($url_repo) = ($adds[0] =~ /^\+.+(http\S+)/s);
+}
+say $url_repo;
+isnt($url_repo,"","El envío incluye un URL");
+like($url_repo,qr/github.com/,"El URL es de GitHub");
+</code></pre>
+	  </section>
+
+	  <section>
+	    <h1><code>Git</code> + <code>Test::More</code></h1>
+	  </section>
+
+	  <section><h1>A simple Travis configuration</h1>
+	    <pre><code>branches:
+  except:
+    - gh-pages
+language: perl
+perl:
+  - "5.16"
+before_install:
+install: cpanm Test::More Test::Harness Git File::Slurper JSON Net::Ping TAP::Formatter::Color Term::ANSIColor
+script: prove -c
+	    </code></pre>
+	  </section>
 	
 	<!-- credits -->
 	<section>
 	    <h2>Credits</h2>
 	    <ul class='credits'>
-	      <li>CI drawing by <a href='http://twitter.com/terceranexus6'>Paula</a></li>
+	      <li>CI drawing
+		by <a href='http://twitter.com/terceranexus6'>Paula</a></li>
+	      <li>Hudson siren
+		by <a href='https://www.flickr.com/photos/jankrutisch/4272142306/'>Jan
+		  Krutisch</a>
+	      </li>
 	  </ul>
 	</section>
+
+	
 	<!-- End -->
 	
       </div>
