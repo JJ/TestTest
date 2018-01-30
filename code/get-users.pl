@@ -38,5 +38,5 @@ for my $r ( keys %repos ) {
 
 for my $d ( sort { $user_stats{$a} <=> $user_stats{$b} } keys %user_stats ) {
   next if ($d =~ /(Merelo|Naveros|klyone)/);
-  say "$d, $user_stats{$d}\n";
+  say "$d, $user_stats{$d}";
 }
