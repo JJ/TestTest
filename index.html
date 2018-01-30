@@ -248,9 +248,40 @@ like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correct
 	    <img src='img/users-milestone.png' style='height:600px'
 		 alt='Different users per milestone'>
 	    <aside class='notes'>Do they learn more? Better? Faster?
-	      Do they bug you less with questions?</aside>
+	      Do they bug you less with questions? One of the
+	    indicators would be how many drop out during the
+	    term. Some times you can't just avoid it: They start a
+	    side job, they have many other assignments, so there's a
+	    "natural rhythm of decay". However, it was pretty bad last
+	    year. As a side effect, I can produce these charts quite
+	    easily, with Perl and doing a bit of repository mining, as
+	    well as R for representation. In fact, I use Google Drive
+	    for grading, so if I could combine this with a GData
+	    client I would go full circle. I still might. Data-driven teaching!</aside>
 	  </section>
-	</section>
+
+	  <section><h2>Use <code>Git::Repo::Commits</code></h2>
+	    <pre><code>  for my $h ( @{$repos{$r}[1]} ) {
+    my ($milestone) = ($h =~ /(\d+)/);
+    my @files = ("$preffix/$h.md");
+    my $commits_obj = new Git::Repo::Commits "$home/$r", \@files;
+    my @committers = map( $_->{'author'}, @{$commits_obj->commits});
+    for my $d ( @committers ) {
+      my ($email) = ($d =~ /<([^>]+)>/);
+      $user_stats{"$email, $class, $milestone"}++;
+    }
+  }
+	    </code></pre>
+	    <aside class='notes'>I created this CPAN module, which is
+	    right now into version 0.1.0, for I don't know what
+	      purpose, but serves me fine for extracting data from the
+	      repos. In this case it extracts from the repo only the
+	    commits that refer to a particular file, the one used for
+	    doing the pull requests, and gets the author information
+	    from it. Similar scripts are used for getting dates and
+	      other info.
+	    </aside>
+	  </section>
 
 
 	<!-- credits -->
