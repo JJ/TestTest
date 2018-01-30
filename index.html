@@ -139,7 +139,7 @@ like($url_repo,qr/github.com/,"El URL es de GitHub");
 </code></pre>
 	  </section>
 
-	  <section><h1>Download code</h1>
+	  <section><h1>Download student's repo</h1>
 	    <pre><code>my ($user,$name) = ($url_repo=~ /github.com\/(\S+)\/(.+)/);
 my $repo_dir = "/tmp/$user-$name";
 if (!(-e $repo_dir) or  !(-d $repo_dir) ) {
@@ -149,6 +149,8 @@ if (!(-e $repo_dir) or  !(-d $repo_dir) ) {
 my $student_repo =  Git->repository ( Directory => $repo_dir );
 my @repo_files = $student_repo->command("ls-files");</code></pre>
 
+	    <aside class='notes'>Maybe I could use Git for that,
+	      instead of the external command. Works well, anyway.</aside>
 	  </section>
 	  
 	  <section>
@@ -172,8 +174,10 @@ script: prove -c
 	  </section>
 
 	  <section><h1>Also checking</h1>
-	    <h2 class='fragment'>Presence of files in repo</h2>
-	    
+	    <h2 class='fragment'>Presence of files and directories in repo</h2>
+	    <h2 class='fragment'>Extracting URLs and DNS names via
+	      regexes</h2>
+	  </section>
 	    
 	</section>
 	
