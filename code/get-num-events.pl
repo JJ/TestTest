@@ -19,7 +19,6 @@ my %repos = ( 'infraestructura-virtual/IV16-17' => ['practicas',
 
 say "Day, Class, Milestone, Changes";
 my %events;
-my %metadata;
 for my $r ( keys %repos ) {
   my $preffix = $repos{$r}[0];
   for my $h ( @{$repos{$r}[1]} ) {
@@ -29,12 +28,11 @@ for my $r ( keys %repos ) {
     for my $d ( @commit_dates ) {
       my ($weekday, $mon, $day, $year) = ($d =~ /(\w+)\s+(\w+)\s+(\w+)\s+\S+\s+(\d+)/);
       my $t = Time::Piece->strptime( "$mon $day $year", "%b %d %Y");
-      $events{$t->mdy("/")}++;
-      $metadata{$t->mdy("/")} = [$r, $h ];
+      $events{$t->mdy("/").", $r, $h"}++;
     }
   }
 }
 
-for my $d ( sort { Time::Piece->strptime($a, "%m/%d/%Y") <=> Time::Piece->strptime($b, "%m/%d/%Y") } keys %events ) {
-  say "$d, ", join( ", ", @{$metadata{$d}}), ", $events{$d}\n";
+for my $d ( sort { Time::Piece->strptime(substr($a,0,10), "%m/%d/%Y") <=> Time::Piece->strptime(substr($b,0,10), "%m/%d/%Y") } keys %events ) {
+  say "$d, $events{$d}\n";
 }
