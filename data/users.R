@@ -1,0 +1,8 @@
+library("ggplot2")
+library("ggthemes")
+library("dplyr")
+users <- read.csv("user-stats.csv")
+users$Milestone <- as.character(users$Milestone)
+ggplot(users,aes(x=Milestone,y=Changes,group=Class,color=Class))+geom_point(position='jitter',size=4) + scale_color_brewer(palette="Set1")
+user.stats <- users %>% group_by(Class, Milestone, Changes) %>% tally()
+ggplot(user.stats,aes(x=Changes,y=n,color=Milestone,shape=Class))+geom_point(position='jitter',size=4) + scale_color_brewer(palette="Set1") 
