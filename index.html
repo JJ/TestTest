@@ -139,6 +139,18 @@ like($url_repo,qr/github.com/,"El URL es de GitHub");
 </code></pre>
 	  </section>
 
+	  <section><h1>Download code</h1>
+	    <pre><code>my ($user,$name) = ($url_repo=~ /github.com\/(\S+)\/(.+)/);
+my $repo_dir = "/tmp/$user-$name";
+if (!(-e $repo_dir) or  !(-d $repo_dir) ) {
+  mkdir($repo_dir);
+  `git clone $url_repo $repo_dir`;
+}
+my $student_repo =  Git->repository ( Directory => $repo_dir );
+my @repo_files = $student_repo->command("ls-files");</code></pre>
+
+	  </section>
+	  
 	  <section>
 	    <h1><code>Git</code> + <code>Test::More</code></h1>
 	  </section>
@@ -155,6 +167,15 @@ install: cpanm Test::More Test::Harness Git File::Slurper JSON Net::Ping TAP::Fo
 script: prove -c
 	    </code></pre>
 	  </section>
+	  <section data-background='img/travis-history.png'>
+	    <h1>Checking...</h1>
+	  </section>
+
+	  <section><h1>Also checking</h1>
+	    <h2 class='fragment'>Presence of files in repo</h2>
+	    
+	    
+	</section>
 	
 	<!-- credits -->
 	<section>
