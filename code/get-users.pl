@@ -30,7 +30,8 @@ for my $r ( keys %repos ) {
     my $commits_obj = new Git::Repo::Commits "$home/$r", \@files;
     my @committers = map( $_->{'author'}, @{$commits_obj->commits});
     for my $d ( @committers ) {
-      $user_stats{"$d, $class, $milestone"}++;
+      my ($email) = ($d =~ /<([^>]+)>/);
+      $user_stats{"$email, $class, $milestone"}++;
     }
   }
 }
