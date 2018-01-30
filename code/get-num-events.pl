@@ -12,7 +12,9 @@ use Time::Piece;
 
 my $home = shift || "/home/jmerelo/txt/docencia/";
 
-my %repos = ( 'infraestructura-virtual/IV16-17' => ['practicas',
+my %repos = ('infraestructura-virtual/IV-2015-16' => ['practicas',
+						      ['1','2','3','4','5']],
+	     'infraestructura-virtual/IV16-17' => ['practicas',
 						    ['0','1','2','3','4','5']],
 	      'infraestructura-virtual/IV-17-18' => ['proyectos',
 						    ['hito-0','hito-1','hito-2','hito-3','hito-4','hito-5']]);
@@ -21,15 +23,18 @@ say "Day, Class, Milestone, Changes";
 my %events;
 for my $r ( keys %repos ) {
   my $preffix = $repos{$r}[0];
+  my ($class) = ($r =~ m{/(\S+)});
   for my $h ( @{$repos{$r}[1]} ) {
+    my ($milestone) = ($h =~ /(\d+)/);
     my @files = ("$preffix/$h.md");
     my $commits_obj = new Git::Repo::Commits "$home/$r", \@files;
     my @commit_dates = map( $_->{'commit_date'}, @{$commits_obj->commits});
     for my $d ( @commit_dates ) {
       my ($weekday, $mon, $day, $year) = ($d =~ /(\w+)\s+(\w+)\s+(\w+)\s+\S+\s+(\d+)/);
-      $year++ if ( $r eq 'infraestructura-virtual/IV16-17' );
+      $year++ if ( $class eq 'IV16-17' );
+      $year += 2 if ( $class eq 'IV-2015-16' );
       my $t = Time::Piece->strptime( "$mon $day $year", "%b %d %Y");
-      $events{$t->mdy("/").", $r, $h"}++;
+      $events{$t->mdy("/").", $class, $milestone"}++;
     }
   }
 }
