@@ -27,6 +27,7 @@ for my $r ( keys %repos ) {
     my @commit_dates = map( $_->{'commit_date'}, @{$commits_obj->commits});
     for my $d ( @commit_dates ) {
       my ($weekday, $mon, $day, $year) = ($d =~ /(\w+)\s+(\w+)\s+(\w+)\s+\S+\s+(\d+)/);
+      $year++ if ( $r eq 'infraestructura-virtual/IV16-17' );
       my $t = Time::Piece->strptime( "$mon $day $year", "%b %d %Y");
       $events{$t->mdy("/").", $r, $h"}++;
     }
