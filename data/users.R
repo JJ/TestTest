@@ -12,3 +12,7 @@ ggplot(user.stats,aes(x=Changes,y=n,color=Milestone,shape=Class))+geom_point(pos
 
 user.milestone <- users %>% group_by(Class, Milestone) %>% tally()
 ggplot(user.milestone,aes(x=Milestone,y=n,group=Class,color=Class,size=n))+geom_line()+theme_tufte()
+
+print(summary(users[users$Class==' IV-2015-16',]))
+print(summary(users[users$Class==' IV16-17',]))
+print(summary(users[users$Class==' IV-17-18',]))
