@@ -214,7 +214,11 @@ before_install:
 install: cpanm Test::More Test::Harness Git File::Slurper JSON Net::Ping TAP::Formatter::Color Term::ANSIColor
 script: prove -c
 	    </code></pre>
+	    <aside class='notes'>The test is in the same repo as the
+	    file they do a PR on, so it's downloaded at the same
+	      time. Assignments are on a different repository. </aside>
 	  </section>
+	  
 	  <section data-background='img/travis-history.png'>
 	    <h1>Checking...</h1>
 	  </section>
@@ -245,7 +249,7 @@ script: prove -c
 my ($milestones ) = ( $page =~ /(\d+)\s+Open/);</code></pre>
 
 	    <pre class='fragment'><code>my $page = get( "https://github.com/$user/$repo".'/issues?q=is%3Aissue+is%3Aclosed' );
-my (@closed_issues ) = ( $page =~ m{<li\s+(id=.+?</li>)}gs ); </code></pre>
+my (@closed_issues ) = ( $page =~ m{&lt;li\s+(id=.+?&lt;/li>)}gs ); </code></pre>
 
 	    <pre class='fragment'><code>my $page = get( "https://github.com/$user/$repo/issues/$issue" );
 return $page =~ /closed\s+this\s+in/gs ;</code></pre>
