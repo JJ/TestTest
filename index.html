@@ -168,7 +168,7 @@ my ($diff_hito) = grep( /$diff_regex/, @files);
 	    </code></pre></section>
 
 	  
-	  <section><h2>Is it a single line? ⃒</h2>
+	  <section><h2>⃒ Is it a single line? </h2>
 
 	    <pre><code>my @lines = split("\n",$diff_hito);
 my @adds = grep(/^\+[^+]/,@lines);
@@ -179,7 +179,6 @@ if ( $adds[0] =~ /\(http/ ) {
 } else {
   ($url_repo) = ($adds[0] =~ /^\+.+(http\S+)/s);
 }
-say $url_repo;
 isnt($url_repo,"","El envío incluye un URL");
 like($url_repo,qr/github.com/,"El URL es de GitHub");
 </code></pre>
@@ -276,12 +275,26 @@ like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correct
 	<section>
 	  <section
 	  data-background='https://farm5.staticflickr.com/4731/38398137574_a9cc8a997b_k_d.jpg'><h1>Saves
-	    me a lot of time.</h1></section>
+	      me a lot of time.</h1>
+
+	    <aside class='notes'>The villa on the background belongs
+	    to the late Fabiola, who was queen of Belgium. It's 40 kms
+	    away from Granada, and it's in Playa Granada, where my
+	    family has bought an apartment. I go there to watch the
+	    progress of the building, and spend the day by the
+	    beach. I could simply not do that before. Because of
+	      things. </aside>
+	  </section>
 
 	  <section><h2>✓ Is it good for the students?</h2>
-	    <img src='img/users-milestone.png' style='height:600px'
+	    <img src='img/users-milestone.png' style='height:500px'
 		 alt='Different users per milestone'>
-	    <aside class='notes'>Do they learn more? Better? Faster?
+	    <aside class='notes'>This is the first thing you've go to
+	      ask when introducing anything new in class. It's quite
+	      clear it saves me time, but is it good for the students?
+	      They are the customers of your product, are they
+	      satisfied with it?
+	      Do they learn more? Better? Faster?
 	      Do they bug you less with questions? One of the
 	    indicators would be how many drop out during the
 	    term. Some times you can't just avoid it: They start a
@@ -306,19 +319,23 @@ like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correct
     }
   }
 	    </code></pre>
-	    <aside class='notes'>I created this CPAN module, which is
+	    <aside class='notes'>Good thing is that since everything
+	    is in the repo, you can easily check stuff using a bit of
+	    repository mining. Also in Perl, of course. I created this CPAN module, which is
 	    right now into version 0.1.0, for I don't know what
 	      purpose, but serves me fine for extracting data from the
 	      repos. In this case it extracts from the repo only the
 	    commits that refer to a particular file, the one used for
 	    doing the pull requests, and gets the author information
 	    from it. Similar scripts are used for getting dates and
-	      other info.
+	      other info. It would be interesting to have something
+	    like that in Perl 6, maybe just using the system's
+	    command. 
 	    </aside>
 	  </section>
 
 	  <section><h2>Testing until it sticks</h2>
-	    <img src='img/users-milestone-boxplot.png'  style='height:600px'
+	    <img src='img/users-milestone-boxplot.png'  style='height:500px'
 		 alt='user-milestones boxplot'>
 	    <aside class='notes'>Previously, it was mainly due to
 	    conflicts. This year conflicts were almost 0 (there were
@@ -329,7 +346,7 @@ like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correct
 	  </section>
 
 	  <section><h3>Release early, release often</h3>
-	    <img src='img/hito5.png' style='height:600px'
+	    <img src='img/hito5.png' style='height:500px'
 		 alt='Check-in time'>
 	    <aside class='notes'>So people were not waiting until the
 	    last possible minute to turn assignments in. They were
@@ -343,7 +360,7 @@ like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correct
 	      little bit more regularly in the subject and test stuff. </aside>
 	  </section>
 
-	  <section><h1>What did students think?</h1>
+	  <section><h2>What did students think?</h2>
 	    <img src='img/poll.png' alt='poll results'>
 	    <aside class='notes'>It helps them turn in the milestone
 	    with less errors, and helps them to have inmediate
@@ -362,6 +379,9 @@ like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correct
 	  <section
 	    data-background='https://farm6.staticflickr.com/5230/5863275896_e189aeb684_o_d.jpg'>
 	    <h1>Semester is over</h1>
+	    <aside class='notes'>Although in fact some students who
+	    failed the initial regular class are
+	      still trying to turn in their assignments for the special one.</aside>
 	  </section>
 
 	  <section><h1>My assignments</h1>
@@ -370,16 +390,16 @@ like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correct
 	      full REST APIs...</h2>
 	    <h3 class='fragment'>✓ Check for plagiarism?</h3>
 
-	    <aside class='notes'>I could also give automatic grading a
+	    <aside class='notes'> I could also give automatic grading a
 	  try... After all, you don't need an AI to grade every single
 	      assignment. Or maybe you do, but that's
 	  alright. Plagiarism could be done simply by using diffs,
 	  however that can be defeated relatively simply and most of
 	  the students use the same tools anyway; you can only create
-	  a Dockerfile for Flask in so many different ways. So will have to do
+	  a Dockerfile for Flask in so many different ways. So I will have to do
 	  some thinking about it. I started work on the CPAN module,
 	  but then life got in the way... And the script already
-	  worked flawlessly, so why bother. It's very raw for the time
+	  worked (more or less) flawlessly, so why bother. It's very raw for the time
 	  being, and not ready for anything resembling release. Will
 	  try to work on it this new, classless, term. </aside>
 	  </section>
@@ -389,11 +409,15 @@ like ( $status_ref->{'status'}, qr/[Oo][Kk]/, "Status de $deployment_url correct
 	    ><h3>Lessons learned</h3>
 	    <h2 class='fragment'>∴ Innovate to improve learning
 	      experience</h2>
-	    <h2 class='fragment'>∴ ... and check if it does</h2>
-	    <h2 classs='fragment'>∴ A little scripting goes a long
-	      way</h2>
+	    <h3 class='fragment'>∴ ... and check if it does</h3>
+	    <h3 classs='fragment'>∴ A little scripting goes a long
+	      way</h3>
 
-	    <aside class='notes'>Painting by <a
+	    <aside class='notes'>The picture is a wonderful one from
+	  the surrealist
+	  painter <a href='http://www.museopicassomalaga.org/exposiciones-temporales/mujeres-artistas-y-surrealismo'>Dorothea
+		Tanning</a>. It's what's left after a situation, you
+	  have to do a postmortem to see what's happened. Painting by <a
 	      href='http://www.museopicassomalaga.org/exposiciones-temporales/mujeres-artistas-y-surrealismo'>Dorothea
 	      Tanning</a>, taken in the Picasso Museum last
 	      Saturday. There's a lesson learned there about fighting
